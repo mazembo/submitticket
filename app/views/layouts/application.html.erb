@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Submitticket</title>
+  <title>
+  	<% if content_for(:title) %>
+      <%= yield(:title) %>
+    <% else %>
+      Ticketee
+    <% end %>
+  </title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+ 
+  	<div class="navbar-header">
+  		<%= link_to "Ticketee", root_path, class: "navbar-brand"%>
+  	</div>
+  	<ul class="nav navbar-nav">
+  		<li class="<%= "active" if current_page? ("/") %>"><%= link_to "Home", root_path %></li>
+  	<% unless user_signed_in? %>
+  		<li class="<%= "active" if current_page? ("/users/sign_up") %>"><%= link_to "Sign up", new_user_registration_path %></li>
+  		<li class="<%= "active" if current_page? ("/users/sign_in") %>"><%= link_to "Sign in", new_user_session_path %></li>
+  	<% end %>
+  	</ul>
+  	<% if user_signed_in? %>
+  	    <ul class="nav navbar-nav navbar-right">
+  	    	<li class="navbar-text">
+  	    		Signed in as <%= current_user.email %>
+  	    	</li>
+  	    	<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+  	    </ul>
+  	  <% end %>
+  
+ </nav>
+<% flash.each do |key, value| %>
+  <div class='alert alert-<%= key %>'>
+    <%= value %>
+  </div> 
+<% end %>
+
 
 <%= yield %>
+</div>
 
 </body>
 </html>

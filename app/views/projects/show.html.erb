@@ -1,0 +1,26 @@
+<% title(@project.name, "Projects") %>
+<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h2><%= @project.name %></h2>
+<ul class="actions">
+<li><%= link_to 'Edit', edit_project_path(@project), class: 'edit' %></li>
+<li><%= link_to 'Delete Project', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %></li>
+</ul>
+</div>
+<div class="page-header">
+	<h2>Tickets</h2>
+	
+	<ul class="actions">
+		<li><%= link_to "New Ticket", new_project_ticket_path(@project), class: "new" %> </li>
+	</ul>
+	
+	<ul id="tickets">
+	<% @project.tickets.each do |ticket| %>
+	<li>
+		#<%= ticket.id %>-
+		<%= link_to ticket.title, [@project, ticket]%>
+	</li>
+	<% end %>
+	</ul>
+</div>
+
