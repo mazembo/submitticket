@@ -40,6 +40,7 @@ group :test do
 end
 gem 'simple_form', '~>3.1.0'
 gem 'devise', '~> 3.4.1'
+gem 'pundit', '0.3.0' 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

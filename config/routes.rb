@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  resources :projects do
+  
+
+  namespace :admin do 
+    root 'base#index'
+    
+    resources :projects, only: [:new, :create, :destroy]
+    resources :users
+  end
+
+  resources :projects, only: [:index, :edit, :show, :update] do 
     resources :tickets
   end
   

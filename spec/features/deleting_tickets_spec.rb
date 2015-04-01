@@ -2,16 +2,15 @@ require 'rails_helper'
 
 feature 'Deleting tickets' do
   let!(:project) { FactoryGirl.create(:project) }
- # let!(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
   let!(:ticket) do
-    ticket = FactoryGirl.create(:ticket, project: project)
-  #  ticket.update(user: user)
-    ticket
-  end
+    FactoryGirl.create(:ticket, project: project, author: user)
+ end
 
 
   before do
-   # sign_in_as!(user)
+    login_as(user)
+    assign_role!(user, :viewer, project)
 
     visit '/'
     click_link project.name

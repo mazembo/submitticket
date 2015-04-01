@@ -8,7 +8,7 @@ RSpec.describe ProjectsController, :type => :routing do
     end
 
     it "routes to #new" do
-      expect(:get => "/projects/new").to route_to("projects#new")
+      expect(:get => "admin/projects/new").to route_to("admin/projects#new")
     end
 
     it "routes to #show" do
@@ -20,7 +20,7 @@ RSpec.describe ProjectsController, :type => :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/projects").to route_to("projects#create")
+      expect(:post => "admin/projects").to route_to("admin/projects#create")
     end
 
     it "routes to #update" do
@@ -28,7 +28,7 @@ RSpec.describe ProjectsController, :type => :routing do
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/projects/1").to route_to("projects#destroy", :id => "1")
+      expect(:delete => "admin/projects/1").to route_to("admin/projects#destroy", :id => "1")
     end
 
   end

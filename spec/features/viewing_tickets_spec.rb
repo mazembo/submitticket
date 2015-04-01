@@ -5,21 +5,24 @@ feature "Viewing tickets" do
     textmate_2 = FactoryGirl.create(:project,
                                     name: "TextMate 2")
 
-    #user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user)
+    assign_role!(user, :viewer, textmate_2)
     ticket = FactoryGirl.create(:ticket,
             project: textmate_2,
             title: "Make it shiny!",
-            description: "Gradients! Starbursts! Oh my!")
-    #ticket.update(user: user)
+            description: "Gradients! Starbursts! Oh my!",
+            author: user)
 
     internet_explorer = FactoryGirl.create(:project,
                                            name: "Internet Explorer")
     FactoryGirl.create(:ticket,
             project: internet_explorer,
             title: "Standards compliance",
-            description: "Isn't a joke.")
-    #ticket.update(user: user)
+            description: "Isn't a joke.",
+            author: user)
+   assign_role!(user, :viewer, internet_explorer)
 
+    login_as(user)
     visit '/'
   end
 

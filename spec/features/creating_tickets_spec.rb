@@ -1,20 +1,21 @@
 require 'rails_helper'
 
-feature "Creating Tickets" do
+RSpec.feature "Creating Tickets" do
+   
   before do
+    #login_as(user)
+    user = FactoryGirl.create(:user)
     project = FactoryGirl.create(:project)
-    #user = FactoryGirl.create(:user)
-
+    assign_role!(user, :viewer, project)
+    login_as(user)
     visit '/'
     click_link project.name
     click_link "New Ticket"
     #message = "You need to sign in or sign up before continuing."
     #expect(page).to have_content(message)
-
     #fill_in "Name", with: user.name
     #fill_in "Password", with: user.password
     #click_button "Sign in"
-
     #click_link project.name
     #click_link "New Ticket"
   end
@@ -26,9 +27,9 @@ feature "Creating Tickets" do
 
     expect(page).to have_content("Ticket has been created.")
 
-    #within "#ticket #author" do
-    #  expect(page).to have_content("Created by example@example.com")
-    #end
+    within "#ticket #author" do
+      # expect(page).to have_content("Created by test1@example.com")
+    end
   end
 
   scenario "Creating a ticket without valid attributes fails" do
