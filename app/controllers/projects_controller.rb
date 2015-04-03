@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = policy_scope(Project)
   end
 
   # GET /projects/1
@@ -16,16 +16,19 @@ class ProjectsController < ApplicationController
   
   # GET /projects/1/edit
   def edit
+    authorize @project, :update?
   end
 
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    authorize @project, :update?
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Project has been updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
+        flash.now[:alert] = "Project has not been updated."
         format.html { render :edit }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
