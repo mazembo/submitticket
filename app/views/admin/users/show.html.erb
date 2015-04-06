@@ -6,3 +6,15 @@
 		<li> <%= link_to "Delete User", [:admin, @user], method: :delete, data: {confirm: "Are you sure you want to delete this user?", class: "delete"} %></li>
 	</ul>
 </header>
+<header>
+	<h2>Roles</h2>
+</header>
+<% if @user.roles.any? %>
+<ul>
+	<% @user.roles.each do |role| %>
+	   <li><%= role.project.name %>: <%= role.role.titleize %> </li>
+	<% end %>
+</ul>
+<% else %>
+   <p>This user has no roles.</p>
+<% end %>

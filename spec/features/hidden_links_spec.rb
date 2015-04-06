@@ -4,7 +4,9 @@ RSpec.feature "hidden links" do
   let(:user) {FactoryGirl.create(:user)}
   let(:admin) {FactoryGirl.create(:user, :admin)}
   let(:project) {FactoryGirl.create(:project)}
-  
+  let!(:ticket) do
+    FactoryGirl.create(:ticket, project: project, author: user)
+ end
   context "anonymous users" do
     scenario "cannot see the New Project link" do
       visit "/"
@@ -26,6 +28,22 @@ RSpec.feature "hidden links" do
       visit project_path(project)
       expect(page).not_to have_link "Delete Project"
     end
+    scenario " cannot see the Edit Project link" do
+      visit project_path(project)
+      expect(page).not_to have_link "Edit Project"
+    end
+    scenario "cannot see the new ticket link" do
+      visit project_path(project)
+      expect(page).not_to have_link "New Ticket"
+    end 
+    scenario "cannot see the Edit Ticket link" do
+      visit project_ticket_path(project, ticket)
+      expect(page).not_to have_link ("Edit Ticket")
+    end
+    scenario "cannot see the Delete Ticket link" do
+      visit project_ticket_path(project, ticket)
+      expect(page).not_to have_link ("Delete Ticket")
+    end
   end
   
   context "admin users" do 
@@ -38,7 +56,24 @@ RSpec.feature "hidden links" do
     scenario "can see the Delete Project link" do
       visit project_path(project)
       expect(page).to have_link "Delete Project"
-    end   
+    end  
+    scenario " can see the Edit Project link " do
+      visit project_path(project)
+      expect(page).to have_link "Edit Project"
+    end 
+    
+    scenario "can see the New Ticket link " do
+      visit project_path(project)
+      expect(page).to have_link "New Ticket"
+    end
+    scenario "can see the Edit Ticket link " do
+      visit project_ticket_path(project, ticket)
+      expect(page).to have_link "Edit Ticket"
+    end
+    scenario "can see the Delete Ticket link " do
+      visit project_ticket_path(project, ticket)
+      expect(page).to have_link "Delete Ticket"
+    end
   
 end
 end

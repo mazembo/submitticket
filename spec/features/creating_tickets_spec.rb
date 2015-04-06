@@ -6,7 +6,7 @@ RSpec.feature "Creating Tickets" do
     #login_as(user)
     user = FactoryGirl.create(:user)
     project = FactoryGirl.create(:project)
-    assign_role!(user, :viewer, project)
+    assign_role!(user, :editor, project)
     login_as(user)
     visit '/'
     click_link project.name
