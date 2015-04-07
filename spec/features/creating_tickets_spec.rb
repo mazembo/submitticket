@@ -23,11 +23,13 @@ RSpec.feature "Creating Tickets" do
   scenario "Creating a ticket" do
     fill_in "Title", with: "Non-standards compliance"
     fill_in "Description", with: "My pages are ugly!"
+    attach_file "File", "spec/fixtures/speed.txt"
     click_button "Create Ticket"
 
     expect(page).to have_content("Ticket has been created.")
 
-    within "#ticket #author" do
+    within "#ticket .asset" do
+      expect(page).to have_content("speed.txt")
       # expect(page).to have_content("Created by test1@example.com")
     end
   end

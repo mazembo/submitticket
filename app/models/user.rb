@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_many :roles
-  
+  has_many :tickets 
   def to_s
     "#{email} (#{admin? ? "Admin" : "User"})"
   end
