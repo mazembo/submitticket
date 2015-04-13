@@ -1,9 +1,12 @@
 <%= simple_form_for [project, ticket], html: { multipart: true } do |f| %>
    <%= f.input :title %>
    <%= f.input :description %>
+   <% number = 0 %>
+   <%= f.fields_for :assets do |asset| %>
    <p>
-   	<%= f.label :asset, "File" %> <br>
-   	<%= f.file_field :asset %>
+   	<%= asset.label :asset, "File ##{number += 1}" %>
+   	<%= asset.file_field :asset, multipart: true %>
    </p>
+   <% end %>
    <%= f.button :submit, class: "btn-primary" %>
 <% end %>
